@@ -14,3 +14,15 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::resource('authors', 'AuthorsController', [
+    'only' => ['index', 'store', 'show', 'update', 'destroy']
+]);
+
+Route::resource('books', 'BooksController', [
+    'only' => ['index', 'store', 'show', 'update', 'destroy']
+]);
+
+Route::resource('authors.books', 'AuthorsBooksController', [
+    'only' => ['index']
+]);

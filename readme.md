@@ -1,27 +1,39 @@
-# Laravel PHP Framework
+## Описание API
 
-[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
-[![Total Downloads](https://poser.pugx.org/laravel/framework/d/total.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
-[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
+#### Authors
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, queueing, and caching.
+**GET /authors** - возвращает список авторов;
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+**GET /authors/{author_id}/books** - возвращает список книг конкретного автора;
 
-## Official Documentation
+**POST /authors** - добавляет нового автора;
 
-Documentation for the framework can be found on the [Laravel website](http://laravel.com/docs).
+Пример запроса: {"author_name" : "Dan Brown"}
 
-## Contributing
+**PUT /authors/{author_id}** - изменяет данные автора (имя);
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
+Пример запроса: {"author_name" : "Ден Браун"}
 
-## Security Vulnerabilities
+**DELETE /authors/{author_id}** - удаляет автора из базы;
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+#### Books
 
-## License
+**GET /books** - возвращает полный список книг;
 
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+**POST /books** - добавляет новую книгу, связывает ее с автором;
+
+Пример запроса: {"book_name" : "Da Vinci Code", "author_id" : 1}
+
+**PUT /books/{book_id}** - изменяет данные книги (название и принадлежность к автору);
+
+Пример запроса: {"book_name" : "Код Да Винчи", "author_id" : 2}
+
+**DELETE /books/{book_id}** - удаляет книгу из базы;
+
+### Замечания
+
+Для удобства тестирования проверка CSRF токена отключена для всех роутов кроме POST. Для POST не нашел способа отключить, поэтому нужно передавать его в заголовках запроса:
+
+{"X-CSRF-TOKEN": "1rzdKkOxhn7ZxeOPSaZECKqL0iRxbt5kliRF0vPK"}
+
+
